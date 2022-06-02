@@ -1,0 +1,21 @@
+pkgname=tcpbutcher
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="Tcpkill clone in Go to butcher TCP sessions with ease."
+arch=('x86_64')
+depends=('libpcap')
+makedepends=('go' 'libpcap')
+url="https://github.com/rwxd/tcpbutcher"
+license=('GNU General Public License v3.0')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('6419674222525a8c4bfad73ab06fa57d129d0b6b17d77058a82ae0e55629acb0')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  go build
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  install -Dm755 "${srcdir}/${pkgname}-${pkgver}/tcpbutcher" -T "${pkgdir}/usr/bin/tcpbutcher"
+}
